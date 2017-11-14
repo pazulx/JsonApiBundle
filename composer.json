@@ -8,7 +8,10 @@
             "email": "p.kazulak@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "jms/serializer-bundle": "^2.2"
+    },
     "autoload": {
         "psr-4": { "Pazulx\\RESTBundle\\": "" },
         "exclude-from-classmap": [

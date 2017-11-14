@@ -3,9 +3,9 @@
 namespace Pazulx\RESTBundle\EventListener;
 
 use JMS\Serializer\Serializer;
-use AppBundle\Exception\ApiExceptionInterface as ApiExceptionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Pazulx\RESTBundle\Exception\ApiExceptionInterface;
 
 class ApiExceptionListener
 {
