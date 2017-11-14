@@ -43,6 +43,10 @@ class RestRequestParamConverter implements ParamConverterInterface
     {
         $param = $configuration->getName();
         $options = $this->getOptions($configuration);
+        if (!($content = $request->getContent())) {
+            return false;
+        }
+        $class = $configuration->getClass();
 
         $object = $this->serializer->deserialize($content, $class, 'json');
         if (isset($options['validate']) && $options['validate'] == true) {
