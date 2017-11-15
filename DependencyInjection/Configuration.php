@@ -1,9 +1,10 @@
 <?php
 
-namespace Pazulx\RESTBundle\DependencyInjection;
+namespace Pazulx\JsonApiBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Pazulx\JsonApiBundle\Request\ParamConverter\RestRequestParamConverter;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
@@ -18,11 +19,15 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pazulx_rest');
+        $rootNode = $treeBuilder->root('pazulx_json_api');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('param_converter_class')->defaultValue(RestRequestParamConverter::class)->end()
+        ;
 
         return $treeBuilder;
     }

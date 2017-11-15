@@ -1,10 +1,10 @@
 <?php
 
-namespace Pazulx\RESTBundle\EventListener;
+namespace Pazulx\JsonApiBundle\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
-use Pazulx\RESTBundle\Response\ApiResponse;
+use Pazulx\JsonApiBundle\Response\ApiResponse;
 use JMS\Serializer\Serializer;
 
 class ViewListener

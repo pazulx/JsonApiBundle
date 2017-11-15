@@ -1,8 +1,8 @@
 <?php
 
-namespace Pazulx\RESTBundle\Response;
+namespace Pazulx\JsonApiBundle\Response;
 
-use Pazulx\RESTBundle\DTO\DtoInterface;
+use Pazulx\JsonApiBundle\DTO\DtoInterface;
 
 class ApiResponse
 {

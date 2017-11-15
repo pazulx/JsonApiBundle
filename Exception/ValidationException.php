@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\Exception;
+namespace Pazulx\JsonApiBundle\Exception;
 
 //use AppBundle\REST\Response\ValidationErrorResponse;
 use Symfony\Component\Validator\ConstraintViolationList;

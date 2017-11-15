@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\Exception;
+namespace Pazulx\JsonApiBundle\Exception;
 
 interface ApiExceptionInterface
 {

@@ -1,23 +1,23 @@
 <?php
 
-namespace Pazulx\RESTBundle\Request\ParamConverter;
+namespace Pazulx\JsonApiBundle\Request\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Pazulx\RESTBundle\DTO\DtoInterface;
+use Pazulx\JsonApiBundle\DTO\DtoInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use JMS\Serializer\SerializerInterface;
-use Pazulx\RESTBundle\Exception\ValidationException;
+use Pazulx\JsonApiBundle\Exception\ValidationException;
 
 class RestRequestParamConverter implements ParamConverterInterface
 {
     /**
      * @var Serializer
      */
-    private $serializer;
+    protected $serializer;
 
     /**
      * @var ValidatorInterface
@@ -75,7 +75,7 @@ class RestRequestParamConverter implements ParamConverterInterface
      *
      * @param mixed $data
      */
-    private function validate($data)
+    protected function validate($data)
     {
         $violations = $this->validator->validate($data);
 
@@ -84,7 +84,7 @@ class RestRequestParamConverter implements ParamConverterInterface
         }
     }
 
-    private function getOptions(ParamConverter $configuration)
+    protected function getOptions(ParamConverter $configuration)
     {
         $defaultValues = array(
             'validate' => false,

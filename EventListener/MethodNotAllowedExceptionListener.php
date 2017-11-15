@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\EventListener;
+namespace Pazulx\JsonApiBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;

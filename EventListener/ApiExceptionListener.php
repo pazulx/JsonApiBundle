@@ -1,11 +1,11 @@
 <?php
 
-namespace Pazulx\RESTBundle\EventListener;
+namespace Pazulx\JsonApiBundle\EventListener;
 
 use JMS\Serializer\Serializer;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
-use Pazulx\RESTBundle\Exception\ApiExceptionInterface;
+use Pazulx\JsonApiBundle\Exception\ApiExceptionInterface;
 
 class ApiExceptionListener
 {

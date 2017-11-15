@@ -3,7 +3,7 @@ imports:
 
 services:
     rest_converter:
-        class:        Pazulx\RESTBundle\Request\ParamConverter\RestRequestParamConverter
+        class: '%param_converter_class%'
         arguments: ["@jms_serializer", "@validator"]
         tags:
             - { name: request.param_converter, priority: -2, converter: rest_converter }

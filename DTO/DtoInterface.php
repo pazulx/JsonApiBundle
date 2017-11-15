@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\DTO;
+namespace Pazulx\JsonApiBundle\DTO;
 
 interface DtoInterface
 {

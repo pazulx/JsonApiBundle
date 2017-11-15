@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\DependencyInjection;
+namespace Pazulx\JsonApiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class PazulxRESTExtension extends Extension
+class PazulxJsonApiExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -21,6 +21,8 @@ class PazulxRESTExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('param_converter_class', $config['param_converter_class']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

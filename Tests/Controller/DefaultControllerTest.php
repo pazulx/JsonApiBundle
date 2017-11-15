@@ -1,6 +1,6 @@
 <?php
 
-namespace Pazulx\RESTBundle\Tests\Controller;
+namespace Pazulx\JsonApiBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

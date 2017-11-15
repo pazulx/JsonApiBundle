@@ -1,19 +1,19 @@
 services:
-    Pazulx\RESTBundle\EventListener\ViewListener:
+    Pazulx\JsonApiBundle\EventListener\ViewListener:
         arguments: ["@jms_serializer"]
         tags:
             - { name: kernel.event_listener, event: kernel.view }
-    Pazulx\RESTBundle\EventListener\ApiExceptionListener:
+    Pazulx\JsonApiBundle\EventListener\ApiExceptionListener:
         arguments: ["@jms_serializer"]
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
-    Pazulx\RESTBundle\EventListener\MethodNotAllowedExceptionListener:
+    Pazulx\JsonApiBundle\EventListener\MethodNotAllowedExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
-    Pazulx\RESTBundle\EventListener\NotFoundExceptionListener:
+    Pazulx\JsonApiBundle\EventListener\NotFoundExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
-    Pazulx\RESTBundle\EventListener\UnexpectedExceptionListener:
+    Pazulx\JsonApiBundle\EventListener\UnexpectedExceptionListener:
         arguments: ["@logger"]
         tags:
             - { name: kernel.event_listener, event: kernel.exception, priority: -1 }
