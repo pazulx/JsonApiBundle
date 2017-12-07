@@ -46,7 +46,11 @@ class RestRequestParamConverter implements ParamConverterInterface
         if (!($content = $request->getContent())) {
             return false;
         }
-        $class = $configuration->getClass();
+        if (!empty($options['array_of'])) {
+            $class = 'array<' . $options['array_of'] . '>';
+        } else {
+            $class = $configuration->getClass();
+        }
 
         $object = $this->serializer->deserialize($content, $class, 'json');
         if (isset($options['validate']) && $options['validate'] == true) {
@@ -63,6 +67,10 @@ class RestRequestParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration)
     {
+        $options = $configuration->getOptions();
+        if (!empty($options['array_of'])) {
+            return is_subclass_of($options['array_of'], DtoInterface::class);
+        }
         if (null === $configuration->getClass()) {
             return false;
         }
@@ -88,6 +96,7 @@ class RestRequestParamConverter implements ParamConverterInterface
     {
         $defaultValues = array(
             'validate' => false,
+            'array_of' => null,
         );
 
         $passedOptions = $configuration->getOptions();

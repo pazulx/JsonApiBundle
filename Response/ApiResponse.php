@@ -2,17 +2,15 @@
 
 namespace Pazulx\JsonApiBundle\Response;
 
-use Pazulx\JsonApiBundle\DTO\DtoInterface;
-
 class ApiResponse
 {
     private $statusCode;
-    private $dto;
+    private $data;
 
-    public function __construct($statusCode, DtoInterface $dto)
+    public function __construct($statusCode, $data)
     {
         $this->statusCode = $statusCode;
-        $this->dto = $dto;
+        $this->data = $data;
     }
 
     public function getStatusCode()
@@ -20,8 +18,8 @@ class ApiResponse
         return $this->statusCode;
     }
 
-    public function getDto()
+    public function getData()
     {
-        return $this->dto;
+        return $this->data;
     }
 }
