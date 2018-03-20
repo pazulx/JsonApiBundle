@@ -29,6 +29,7 @@ class UnexpectedExceptionListener
     {
         // You get the exception object from the received event
         $exception = $event->getException();
+        //dump($exception);
 
         $data = [
             'message' => 'Unexpected error',

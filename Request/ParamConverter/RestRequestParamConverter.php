@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pazulx\JsonApiBundle\DTO\DtoInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use JMS\Serializer\SerializerInterface;
-use Pazulx\JsonApiBundle\Exception\ValidationException;
 
 class RestRequestParamConverter implements ParamConverterInterface
 {
@@ -20,18 +18,11 @@ class RestRequestParamConverter implements ParamConverterInterface
     protected $serializer;
 
     /**
-     * @var ValidatorInterface
-     */
-    protected $validator;
-
-    /**
      * @param SerializerInterface $serializer
-     * @param ValidatorInterface  $validator
      */
-    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        $this->validator = $validator;
     }
 
     /**
@@ -53,9 +44,6 @@ class RestRequestParamConverter implements ParamConverterInterface
         }
 
         $object = $this->serializer->deserialize($content, $class, 'json');
-        if (isset($options['validate']) && $options['validate'] == true) {
-            $this->validate($object);
-        }
 
         $request->attributes->set($param, $object);
 
@@ -78,24 +66,9 @@ class RestRequestParamConverter implements ParamConverterInterface
         return is_subclass_of($configuration->getClass(), DtoInterface::class);
     }
 
-    /**
-     * validate.
-     *
-     * @param mixed $data
-     */
-    protected function validate($data)
-    {
-        $violations = $this->validator->validate($data);
-
-        if (count($violations) > 0) {
-            throw new ValidationException(Response::HTTP_UNPROCESSABLE_ENTITY, $violations);
-        }
-    }
-
     protected function getOptions(ParamConverter $configuration)
     {
         $defaultValues = array(
-            'validate' => false,
             'array_of' => null,
         );
 

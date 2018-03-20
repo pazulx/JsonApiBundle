@@ -10,6 +10,9 @@ services:
     Pazulx\JsonApiBundle\EventListener\MethodNotAllowedExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+    Pazulx\JsonApiBundle\EventListener\SecurityExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
     Pazulx\JsonApiBundle\EventListener\NotFoundExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
