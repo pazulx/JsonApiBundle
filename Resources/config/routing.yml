@@ -1,4 +1,0 @@
-pazulx_rest:
-    resource: '@PazulxJsonApiBundle/Controller'
-    type: annotation
-    prefix:   /api

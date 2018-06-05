@@ -2,8 +2,8 @@ imports:
     - { resource: event_listeners.yml }
 
 services:
-    rest_converter:
+    json_converter:
         class: '%param_converter_class%'
         arguments: ["@jms_serializer", "@validator"]
         tags:
-            - { name: request.param_converter, priority: -2, converter: rest_converter }
+            - { name: request.param_converter, priority: -2, converter: json_converter }
