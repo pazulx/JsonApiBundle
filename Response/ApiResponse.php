@@ -2,24 +2,21 @@
 
 namespace Pazulx\JsonApiBundle\Response;
 
-class ApiResponse
+use Symfony\Component\HttpFoundation\Response;
+
+class ApiResponse extends Response
 {
-    private $statusCode;
-    private $data;
+    private $dto;
 
-    public function __construct($statusCode, $data)
+    public function __construct($dto, $status = 200, $headers = array())
     {
-        $this->statusCode = $statusCode;
-        $this->data = $data;
+        $this->dto = $dto;
+
+        parent::__construct('', $status, $headers)
     }
 
-    public function getStatusCode()
+    public function getDto()
     {
-        return $this->statusCode;
-    }
-
-    public function getData()
-    {
-        return $this->data;
+        return $this->dto;
     }
 }

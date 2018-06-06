@@ -26,11 +26,13 @@ class ViewListener
     {
         $result = $event->getControllerResult();
         if ($result instanceof ApiResponse) {
-            $data = $this->serializer->serialize($result->getData(), 'json');
-            $response = new Response($data, $result->getStatusCode(), ['Content-Type' => 'application/json']);
+            $data = $this->serializer->serialize($result->getDto(), 'json');
+            //$response = new Response($data, $result->getStatusCode(), ['Content-Type' => 'application/json']);
+            $result->setContent($data);
+            $resull->headers->set('Content-Type', 'application/json');
 
             // Send the modified response object to the event
-            $event->setResponse($response);
+            $event->setResponse($result);
         }
     }
 }
