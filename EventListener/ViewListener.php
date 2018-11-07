@@ -2,7 +2,6 @@
 
 namespace Pazulx\JsonApiBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Pazulx\JsonApiBundle\Response\ApiResponse;
 use JMS\Serializer\Serializer;
@@ -27,12 +26,12 @@ class ViewListener
         $result = $event->getControllerResult();
         if ($result instanceof ApiResponse) {
             $data = $this->serializer->serialize($result->getDto(), 'json');
-            //$response = new Response($data, $result->getStatusCode(), ['Content-Type' => 'application/json']);
-            $result->setContent($data);
-            $resull->headers->set('Content-Type', 'application/json');
+
+            $response = $result->getResponse();
+            $response->setContent($data);
 
             // Send the modified response object to the event
-            $event->setResponse($result);
+            $event->setResponse($response);
         }
     }
 }

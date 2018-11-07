@@ -2,21 +2,29 @@
 
 namespace Pazulx\JsonApiBundle\Response;
 
+use Pazulx\JsonApiBundle\DTO\DtoInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiResponse extends Response
+class ApiResponse
 {
     private $dto;
+    private $response;
 
-    public function __construct($dto, $status = 200, $headers = array())
+    public function __construct(DtoInterface $dto, $status = 200)
     {
         $this->dto = $dto;
 
-        parent::__construct('', $status, $headers)
+        $this->response = new Response('', $status);
+        $this->response->headers->set('Content-Type', 'application/json');
     }
 
     public function getDto()
     {
         return $this->dto;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
     }
 }
