@@ -20,11 +20,11 @@ class SecurityExceptionListener
         $exception = $event->getException();
 
         if ($exception instanceof InsufficientAuthenticationException) {
-            $message = 'HTTP_FORBIDDEN';
-            $code = Response::HTTP_FORBIDDEN;
-        } elseif ($exception instanceof AccessDeniedHttpException) {
             $message = 'HTTP_UNAUTHORIZED';
             $code = Response::HTTP_UNAUTHORIZED;
+        } elseif ($exception instanceof AccessDeniedHttpException) {
+            $message = 'HTTP_FORBIDDEN';
+            $code = Response::HTTP_FORBIDDEN;
         } else {
             return;
         }
