@@ -4,38 +4,15 @@ namespace Pazulx\JsonApiBundle\Exception;
 
 //use AppBundle\REST\Response\ValidationErrorResponse;
 
-class ApiException extends \Exception implements ApiExceptionInterface
+class ApiException extends \Exception
 {
-    /**
-     * @var array
-     */
-    private $data;
+    const HTTP_BAD_REQUEST = 400;
+    const HTTP_INTERNAL_SERVER_ERROR = 500;
 
-    private $statusCode;
-
-    /**
-     * @param array $data
-     * @param int   $statusCode
-     */
-    public function __construct($statusCode, array $data)
+    public function __construct($message = '', $statusCode = null)
     {
-        $this->data = $data;
-        $this->statusCode = $statusCode;
-    }
+        $statusCode = $statusCode ?? ApiException::HTTP_BAD_REQUEST;
 
-    /**
-     * getData.
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * getData.
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
+        parent::__construct($message, $statusCode);
     }
 }
