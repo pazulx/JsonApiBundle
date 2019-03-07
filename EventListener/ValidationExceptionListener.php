@@ -35,21 +35,28 @@ class ValidationExceptionListener
         $errors = [];
 
         foreach ($violations as $violation) {
+
             $path = $violation->getPropertyPath();
             $message = $violation->getMessage();
-            if (isset($errors[$path]) && !is_array($errors[$path])) {
-                if ($message == $errors[$path]) {
-                    continue;
-                }
-                $errors[$path] = [$errors[$path]];
-            }
-            if (isset($errors[$path]) && is_array($errors[$path])) {
-                if (in_array($message, $errors[$path])) {
-                    continue;
-                }
-                $errors[$path][] = $message;
+
+            if (empty($path)) {
+                $errors[] = $message;
             } else {
-                $errors[$path] = $message;
+
+                if (isset($errors[$path]) && !is_array($errors[$path])) {
+                    if ($message == $errors[$path]) {
+                        continue;
+                    }
+                    $errors[$path] = [$errors[$path]];
+                }
+                if (isset($errors[$path]) && is_array($errors[$path])) {
+                    if (in_array($message, $errors[$path])) {
+                        continue;
+                    }
+                    $errors[$path][] = $message;
+                } else {
+                    $errors[$path] = $message;
+                }
             }
         }
 
