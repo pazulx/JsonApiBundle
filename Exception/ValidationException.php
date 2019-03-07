@@ -5,38 +5,27 @@ namespace Pazulx\JsonApiBundle\Exception;
 //use AppBundle\REST\Response\ValidationErrorResponse;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-class ValidationException extends \Exception implements ApiExceptionInterface
+class ValidationException extends \Exception
 {
-    /**
-     * @var ValidationErrorResponse
-     */
-    private $errors;
+    const DEFAULT_VALIDATION_ERROR_MESSAGE = 'Validation error.';
 
-    private $statusCode;
+    protected $errors;
 
-    /**
-     * @param ConstraintViolationList $errors
-     * @param int                     $statusCode
-     */
-    public function __construct($statusCode, ConstraintViolationList $errors = null)
-    {
-        $this->errors = $errors;
-        $this->statusCode = $statusCode;
+    public function __construct(
+        ConstraintViolationList $errors,
+        $message = null,
+        $statusCode = null
+    ) {
+        $statusCode = $statusCode ?? ApiException::HTTP_BAD_REQUEST;
+        $message = $message ?? self::DEFAULT_VALIDATION_ERROR_MESSAGE;
+
+        $this->errors =$errors;
+
+        parent::__construct($message, $statusCode);
     }
 
-    /**
-     * getData.
-     */
-    public function getData()
+    public function getErrors()
     {
         return $this->errors;
-    }
-
-    /**
-     * getData.
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
     }
 }
