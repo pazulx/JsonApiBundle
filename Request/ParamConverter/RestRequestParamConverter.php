@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pazulx\JsonApiBundle\DTO\DtoInterface;
 use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\DeserializationContext;
 
 class RestRequestParamConverter implements ParamConverterInterface
 {
@@ -34,16 +35,31 @@ class RestRequestParamConverter implements ParamConverterInterface
     {
         $param = $configuration->getName();
         $options = $this->getOptions($configuration);
-        if (!($content = $request->getContent())) {
-            return false;
-        }
-        if (!empty($options['array_of'])) {
-            $class = 'array<' . $options['array_of'] . '>';
-        } else {
-            $class = $configuration->getClass();
-        }
 
-        $object = $this->serializer->deserialize($content, $class, 'json');
+        $class = $configuration->getClass();
+
+        if ($options['type'] == 'body') {
+
+            if (!($content = $request->getContent())) {
+                return false;
+            }
+            if (!empty($options['array_of'])) {
+                $class = 'array<' . $options['array_of'] . '>';
+            }
+
+            $object = $this->serializer->deserialize($content, $class, 'json');
+        } elseif ($options['type'] == 'query') {
+
+            $object = new $class();
+
+            foreach($object->getProperties() as $property) {
+                if ($request->query->has($property)) {
+                    $object->$property = $request->query->get($property);
+                }
+            }
+        } else {
+            throw new \Exception('Unsuported type');
+        }
 
         $request->attributes->set($param, $object);
 
@@ -70,6 +86,7 @@ class RestRequestParamConverter implements ParamConverterInterface
     {
         $defaultValues = array(
             'array_of' => null,
+            'type' => 'body',
         );
 
         $passedOptions = $configuration->getOptions();
