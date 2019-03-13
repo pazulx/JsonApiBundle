@@ -98,4 +98,10 @@ class RestRequestParamConverter implements ParamConverterInterface
 
         return array_replace($defaultValues, $passedOptions);
     }
+
+    private function getAnnotationName(ParamConverter $configuration)
+    {
+        $r = new \ReflectionClass($configuration);
+        return $r->getShortName();
+    }
 }
